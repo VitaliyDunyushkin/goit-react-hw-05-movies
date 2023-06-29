@@ -1,11 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
 // import css from './MovieDetails.css';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
-  console.log(movieId);
+  const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
+
+  const [movieInfo, setMovieInfo] = useState({
+    poster_path: '',
+    title: '',
+    genres: [],
+    overview: '',
+    vote_average: 0,
+  });
+  console.log(movieInfo);
 
   useEffect(() => {
     const options = {
@@ -22,14 +31,37 @@ export default function MovieDetails() {
       options
     )
       .then(response => response.json())
-      .then(response => console.log(response))
+      .then(response => {
+        console.log(response);
+        setMovieInfo({
+          poster_path: response.poster_path,
+          title: response.title,
+          genres: response.genres,
+          overview: response.overview,
+          vote_average: response.vote_average,
+        });
+      })
       .catch(err => console.error(err));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <p>MovieDetails ************</p>
+      <p>
+        <Link to="/">Go home</Link>
+      </p>
+      <img
+        src={BASE_POSTER_URL + movieInfo.poster_path}
+        alt={movieInfo.title}
+        width={200}
+      />
+      <h1>{movieInfo.title}</h1>
+      <p>User score: {Math.round(movieInfo.vote_average * 10)}%</p>
+      <h2>Overview</h2>
+      <p>{movieInfo.overview}</p>
+      <h2>Genres</h2>
+      <p>{movieInfo.genres.flatMap(item => item.name).join(', ')}</p>
+
       <h3>Additional information</h3>
       <ul>
         <li>

@@ -7,7 +7,8 @@ export default function Movies() {
       <p>
         <Link to="/">Go home</Link>
       </p>
-      <p>movies movies</p>
+
+      <p>movies search</p>
       <Outlet />
     </>
   );
