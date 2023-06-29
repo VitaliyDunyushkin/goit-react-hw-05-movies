@@ -9,10 +9,10 @@ export default function Layout() {
       <header>
         <ul>
           <li>
-            <NavLink to="/goit-react-hw-05-movies">Home</NavLink>
+            <NavLink to="/">Home</NavLink>
           </li>
           <li>
-            <NavLink to="/goit-react-hw-05-movies/movies">Movies</NavLink>
+            <NavLink to="/movies">Movies</NavLink>
           </li>
         </ul>
       </header>
