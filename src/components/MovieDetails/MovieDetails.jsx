@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link, useParams } from 'react-router-dom';
 
-import css from './MovieDetails.css';
+// import css from './MovieDetails.css';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
@@ -24,6 +24,7 @@ export default function MovieDetails() {
       .then(response => response.json())
       .then(response => console.log(response))
       .catch(err => console.error(err));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
