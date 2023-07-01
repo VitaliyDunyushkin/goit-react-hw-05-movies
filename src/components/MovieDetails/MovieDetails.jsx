@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, Suspense } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 // import css from './MovieDetails.css';
@@ -17,7 +17,6 @@ export default function MovieDetails() {
     overview: '',
     vote_average: 0,
   });
-  // console.log(movieInfo);
 
   useEffect(() => {
     const options = {
@@ -35,7 +34,7 @@ export default function MovieDetails() {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setMovieInfo({
           poster_path: response.poster_path,
           release_date: response.release_date,
@@ -77,7 +76,9 @@ export default function MovieDetails() {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }

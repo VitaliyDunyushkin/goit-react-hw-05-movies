@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, Suspense } from 'react';
 import { Outlet, Link, useSearchParams, useLocation } from 'react-router-dom';
 
 export default function Movies() {
@@ -21,9 +21,7 @@ export default function Movies() {
     };
 
     fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${
-        /*searchText ||*/ query
-      }&include_adult=false&language=en-US&page=1`,
+      `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
       options
     )
       .then(response => response.json())
@@ -62,7 +60,9 @@ export default function Movies() {
         ))}
       </ul>
 
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </>
   );
 }

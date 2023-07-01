@@ -23,7 +23,7 @@ export default function Reviews() {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        // console.log(response);
         setReviews(response.results);
       })
       .catch(err => console.error(err));
@@ -31,7 +31,6 @@ export default function Reviews() {
 
   return (
     <>
-      <p>Reviews INFO</p>
       <ul>
         {reviews.map(review => (
           <li key={review.id}>

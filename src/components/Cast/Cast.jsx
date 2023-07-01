@@ -33,7 +33,6 @@ export default function Cast() {
 
   return (
     <>
-      <p>Cast info</p>
       <ul>
         {cast.map(actor => (
           <li key={actor.cast_id}>
