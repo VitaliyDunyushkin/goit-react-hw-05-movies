@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 
 export default function Home() {
   const [query, setQuery] = useState([]);
+  const location = useLocation();
 
   useEffect(() => {
     const options = {
@@ -20,7 +21,7 @@ export default function Home() {
     )
       .then(response => response.json())
       .then(response => {
-        console.log(response);
+        // console.log(response);
         return setQuery(response.results);
       })
       .catch(err => console.error(err));
@@ -32,7 +33,9 @@ export default function Home() {
       <ul>
         {query.map(({ id, name, title }) => (
           <li key={id}>
-            <Link to={`movies/${id}`}>{name || title}</Link>
+            <Link to={`movies/${id}`} state={{ from: location }}>
+              {name || title}
+            </Link>
           </li>
         ))}
       </ul>

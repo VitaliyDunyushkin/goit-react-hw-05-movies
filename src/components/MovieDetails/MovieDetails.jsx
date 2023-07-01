@@ -1,20 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 // import css from './MovieDetails.css';
 
 export default function MovieDetails() {
   const { movieId } = useParams();
+  const location = useLocation();
   const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 
   const [movieInfo, setMovieInfo] = useState({
     poster_path: '',
+    release_date: '',
     title: '',
     genres: [],
     overview: '',
     vote_average: 0,
   });
-  console.log(movieInfo);
+  // console.log(movieInfo);
 
   useEffect(() => {
     const options = {
@@ -35,6 +37,7 @@ export default function MovieDetails() {
         console.log(response);
         setMovieInfo({
           poster_path: response.poster_path,
+          release_date: response.release_date,
           title: response.title,
           genres: response.genres,
           overview: response.overview,
@@ -48,14 +51,16 @@ export default function MovieDetails() {
   return (
     <>
       <p>
-        <Link to="/">Go home</Link>
+        <Link to={location.state?.from ?? '/movies'}>Go back</Link>
       </p>
       <img
         src={BASE_POSTER_URL + movieInfo.poster_path}
         alt={movieInfo.title}
         width={200}
       />
-      <h1>{movieInfo.title}</h1>
+      <h1>
+        {movieInfo.title + ' (' + movieInfo.release_date.slice(0, 4) + ')'}
+      </h1>
       <p>User score: {Math.round(movieInfo.vote_average * 10)}%</p>
       <h2>Overview</h2>
       <p>{movieInfo.overview}</p>
@@ -71,6 +76,7 @@ export default function MovieDetails() {
           <Link to="reviews">Reviews</Link>
         </li>
       </ul>
+      <Outlet />
     </>
   );
 }
