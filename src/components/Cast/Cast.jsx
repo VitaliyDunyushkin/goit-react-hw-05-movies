@@ -26,7 +26,7 @@ export default function Cast() {
       .then(response => response.json())
       .then(response => {
         // console.log(response);
-        setCast(response.cast);
+        setCast(response.cast || []);
       })
       .catch(err => console.error(err));
   }, [movieId]);
@@ -34,17 +34,19 @@ export default function Cast() {
   return (
     <>
       <ul>
-        {cast.map(actor => (
-          <li key={actor.cast_id}>
-            <h3>{actor.name}</h3>
-            <p>character: {actor.character}</p>
-            <img
-              src={BASE_POSTER_URL + actor.profile_path || 'no photo'}
-              alt={actor.name}
-              width={200}
-            />
-          </li>
-        ))}
+        {cast.length > 0
+          ? cast.map(actor => (
+              <li key={actor.cast_id}>
+                <h3>{actor.name}</h3>
+                <p>character: {actor.character}</p>
+                <img
+                  src={BASE_POSTER_URL + actor.profile_path || 'no photo'}
+                  alt={actor.name}
+                  width={200}
+                />
+              </li>
+            ))
+          : 'Ooops ... no cast info'}
       </ul>
     </>
   );

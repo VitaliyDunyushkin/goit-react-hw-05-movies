@@ -24,7 +24,7 @@ export default function Reviews() {
       .then(response => response.json())
       .then(response => {
         // console.log(response);
-        setReviews(response.results);
+        setReviews(response.results || []);
       })
       .catch(err => console.error(err));
   }, [movieId]);
@@ -32,12 +32,14 @@ export default function Reviews() {
   return (
     <>
       <ul>
-        {reviews.map(review => (
-          <li key={review.id}>
-            <h3>Author: {review.author}</h3>
-            <p>{review.content}</p>
-          </li>
-        ))}
+        {reviews.length > 0
+          ? reviews.map(review => (
+              <li key={review.id}>
+                <h3>Author: {review.author}</h3>
+                <p>{review.content}</p>
+              </li>
+            ))
+          : 'Ooops ... no reviews'}
       </ul>
     </>
   );

@@ -35,13 +35,21 @@ export default function MovieDetails() {
       .then(response => response.json())
       .then(response => {
         // console.log(response);
+        const {
+          poster_path,
+          release_date = '',
+          title = 'no info',
+          genres = [{ name: 'no info' }],
+          overview = 'no info',
+          vote_average,
+        } = response;
         setMovieInfo({
-          poster_path: response.poster_path,
-          release_date: response.release_date,
-          title: response.title,
-          genres: response.genres,
-          overview: response.overview,
-          vote_average: response.vote_average,
+          poster_path: poster_path,
+          release_date: release_date,
+          title: title,
+          genres: genres,
+          overview: overview,
+          vote_average: vote_average,
         });
       })
       .catch(err => console.error(err));
@@ -61,7 +69,7 @@ export default function MovieDetails() {
       <h1>
         {movieInfo.title + ' (' + movieInfo.release_date.slice(0, 4) + ')'}
       </h1>
-      <p>User score: {Math.round(movieInfo.vote_average * 10)}%</p>
+      <p>User score: {Math.round(movieInfo.vote_average * 10) || ''}%</p>
       <h2>Overview</h2>
       <p>{movieInfo.overview}</p>
       <h2>Genres</h2>

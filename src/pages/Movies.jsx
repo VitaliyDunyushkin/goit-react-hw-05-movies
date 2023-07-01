@@ -49,7 +49,6 @@ export default function Movies() {
         <button type="submit">Search</button>
       </form>
 
-      <p>movies search</p>
       <ul>
         {moviesList.map(({ id, name, title }) => (
           <li key={id}>
