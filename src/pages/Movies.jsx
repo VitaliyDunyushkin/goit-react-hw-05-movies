@@ -35,7 +35,7 @@ export default function Movies() {
   return (
     <>
       <p>
-        <Link to={location.state?.from ?? '/'}>Go back</Link>
+        <Link to={location.state?.from ?? '/'}> {`<<<< Go back`}</Link>
       </p>
       <form
         onSubmit={event => {

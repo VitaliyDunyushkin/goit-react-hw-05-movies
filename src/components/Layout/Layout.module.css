@@ -1,0 +1,23 @@
+.container {
+    padding: 30px;
+}
+
+.navigation {
+    display: flex;
+    gap: 10px;
+    list-style: none;
+}
+
+.link {    
+    text-decoration: none;
+    
+    font-size: 30px;
+    font-weight: 600;
+    padding: 5px;
+
+    &:hover{
+        background-color: blueviolet;
+        color: aliceblue;
+    }
+
+}

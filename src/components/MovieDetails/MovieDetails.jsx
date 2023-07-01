@@ -59,7 +59,7 @@ export default function MovieDetails() {
   return (
     <>
       <p>
-        <Link to={backLinkLocationRef.current}>Go back</Link>
+        <Link to={backLinkLocationRef.current}>{`<<<< Go back`}</Link>
       </p>
       <img
         src={BASE_POSTER_URL + movieInfo.poster_path}
