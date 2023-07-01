@@ -27,7 +27,8 @@ export default function Reviews() {
         setReviews(response.results);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [movieId]);
+
   return (
     <>
       <p>Reviews INFO</p>

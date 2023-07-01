@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Outlet, Link, useSearchParams, useLocation } from 'react-router-dom';
 
 export default function Movies() {

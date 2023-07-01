@@ -29,7 +29,7 @@ export default function Cast() {
         setCast(response.cast);
       })
       .catch(err => console.error(err));
-  }, []);
+  }, [movieId]);
 
   return (
     <>

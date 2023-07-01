@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 
 // import css from './MovieDetails.css';
@@ -6,6 +6,7 @@ import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
 export default function MovieDetails() {
   const { movieId } = useParams();
   const location = useLocation();
+  const backLinkLocationRef = useRef(location.state?.from ?? '/movies');
   const BASE_POSTER_URL = 'https://image.tmdb.org/t/p/w500/';
 
   const [movieInfo, setMovieInfo] = useState({
@@ -51,7 +52,7 @@ export default function MovieDetails() {
   return (
     <>
       <p>
-        <Link to={location.state?.from ?? '/movies'}>Go back</Link>
+        <Link to={backLinkLocationRef.current}>Go back</Link>
       </p>
       <img
         src={BASE_POSTER_URL + movieInfo.poster_path}
