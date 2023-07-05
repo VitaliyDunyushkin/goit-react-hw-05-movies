@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
 import { getTrendMovies } from 'api/getTrendMovies';
+import MoviesList from '../components/MoviesList';
 
 export default function Home() {
   const [query, setQuery] = useState([]);
@@ -19,13 +20,7 @@ export default function Home() {
     <div>
       <h1>Trending movies:</h1>
       <ul>
-        {query.map(({ id, name, title }) => (
-          <li key={id}>
-            <Link to={`movies/${id}`} state={{ from: location }}>
-              {name || title}
-            </Link>
-          </li>
-        ))}
+        <MoviesList moviesList={query} state={{ from: location }} />
       </ul>
     </div>
   );

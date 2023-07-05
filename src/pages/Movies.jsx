@@ -1,7 +1,8 @@
-import React, { useEffect, useState, Suspense } from 'react';
-import { Outlet, Link, useSearchParams, useLocation } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
+import { useSearchParams, useLocation } from 'react-router-dom';
 
 import { getSearchMovies } from 'api/getSearchMovies';
+import MoviesList from '../components/MoviesList';
 
 export default function Movies() {
   const [moviesList, setMoviesList] = useState([]);
@@ -35,18 +36,8 @@ export default function Movies() {
       </form>
 
       <ul>
-        {moviesList.map(({ id, name, title }) => (
-          <li key={id}>
-            <Link to={`${id}`} state={{ from: location }}>
-              {name || title}
-            </Link>
-          </li>
-        ))}
+        <MoviesList moviesList={moviesList} state={{ from: location }} />
       </ul>
-
-      <Suspense fallback={<div>Loading...</div>}>
-        <Outlet />
-      </Suspense>
     </>
   );
 }
