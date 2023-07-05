@@ -1,6 +1,8 @@
 import React, { useEffect, useState, Suspense } from 'react';
 import { Outlet, Link, useSearchParams, useLocation } from 'react-router-dom';
 
+import { getSearchMovies } from 'api/getSearchMovies';
+
 export default function Movies() {
   const [moviesList, setMoviesList] = useState([]);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,22 +13,8 @@ export default function Movies() {
     if (query === null) {
       return;
     }
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNmY0OTNkZTM3N2Q0OWFlMjJiYjI0OGE1OTlhZTQzMyIsInN1YiI6IjY0OWM1NGFhOTYzODY0MDExZGE4ZmExNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AraQa6sw5Xc4jMFmOF5nTNm9FYUuccfqZCYZiwyPdHw',
-      },
-    };
-
-    fetch(
-      `https://api.themoviedb.org/3/search/movie?query=${query}&include_adult=false&language=en-US&page=1`,
-      options
-    )
-      .then(response => response.json())
+    getSearchMovies(query)
       .then(response => {
-        // console.log(response);
         setMoviesList(response.results);
       })
       .catch(err => console.error(err));
@@ -34,13 +22,10 @@ export default function Movies() {
 
   return (
     <>
-      <p>
-        <Link to={location.state?.from ?? '/'}> {`<<<< Go back`}</Link>
-      </p>
       <form
         onSubmit={event => {
           event.preventDefault();
-          // console.log(event.target.elements.search.value);
+
           setSearchParams({ query: event.target.elements.search.value });
           event.target.elements.search.value = '';
         }}

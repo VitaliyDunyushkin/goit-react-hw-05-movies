@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
-// import css from './Cast.css';
+import { getMovieCast } from 'api/getMovieCast';
 
 export default function Cast() {
   const { movieId } = useParams();
@@ -10,22 +10,8 @@ export default function Cast() {
   const [cast, setCast] = useState([]);
 
   useEffect(() => {
-    const options = {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-        Authorization:
-          'Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNmY0OTNkZTM3N2Q0OWFlMjJiYjI0OGE1OTlhZTQzMyIsInN1YiI6IjY0OWM1NGFhOTYzODY0MDExZGE4ZmExNyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.AraQa6sw5Xc4jMFmOF5nTNm9FYUuccfqZCYZiwyPdHw',
-      },
-    };
-
-    fetch(
-      `https://api.themoviedb.org/3/movie/${movieId}/credits?language=en-US`,
-      options
-    )
-      .then(response => response.json())
+    getMovieCast(movieId)
       .then(response => {
-        // console.log(response);
         setCast(response.cast || []);
       })
       .catch(err => console.error(err));
